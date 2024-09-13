@@ -13,4 +13,6 @@ def creategrid(width,height):
     grid.append([])
     for j in range(width):
       grid[i].append(tile(-1,-1,10,0,0))
-print(grid(10,10))
+def plant():
+  
+  
