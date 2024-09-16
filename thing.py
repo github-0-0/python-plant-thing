@@ -26,7 +26,8 @@ def define():
   c = 8 + len(b)
   for i in range(8):
     a.append(i)
-  for i in range():
+  a.append([0,1,randomcelltype(c),randomcelltype(c)])
+  for i in range(b-1):
     a.append([randomcelltype(c) for i in range(4)])
   return a
 def plant(id):
@@ -43,11 +44,18 @@ def deathcondition(cell):
     return True
   else:
     return False
+def wrap(x,n):
+  return (x+n)%n
+def neighbors(x,y):
+  return [[wrap(x-1,height),y],[x,wrap(y+1,width)],[wrap(x+1,height),y],[x,wrap(y-1,width)]]
 def updategrid():
   vgrid = grid
   for i in range(height):
     for j in range(width):
-
+      if grid[i][j]["cell"] == 0:
+        
+        
+        
 
 
 
