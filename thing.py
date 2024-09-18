@@ -1,4 +1,9 @@
 import random
+grid=[]
+width=100
+height=100
+plantlist=[]
+population=500
 def tile(type,id,water,energy,direction,rootx,rooty):
   return {
     "type":type,
@@ -23,10 +28,11 @@ def randomcelltype(lastdefindex):
 def define():
   a = []
   b = random.randint(0,20)
-  c = 8 + len(b)
+  c = 8 + b
   for i in range(8):
     a.append(i)
   a.append([0,1,randomcelltype(c),randomcelltype(c)])
+  random.shuffle(a)
   for i in range(b-1):
     a.append([randomcelltype(c) for i in range(4)])
   return a
@@ -35,12 +41,10 @@ def plant(id):
     "def":define(),
     "id":id
   }
-plantlist=[]
-population = 500
 for i in range(population):
   plantlist.append(plant(i))
 def deathcondition(cell):
-  if cell["water"]<=0 or cell["energy"]<=0 or grid[rootx][rooty]["id"]== -1:
+  if cell["water"]<=0 or cell["energy"]<=0 or grid[cell["rootx"]][cell["rooty"]]["id"]== -1:
     return True
   else:
     return False
@@ -52,8 +56,44 @@ def updategrid():
   vgrid = grid
   for i in range(height):
     for j in range(width):
-      if grid[i][j]["cell"] == 0:
+      self=grid[i][j]
+      if deathcondition(self):
+        vgrid[i][j]["type"]=-1
+        vgrid[i][j]["id"]=-1
+        vgrid[i][j]["rootx"]=-1
+        vgrid[i][j]["rooty"]=-1
+      else:
+        lneighbors=[]
+        for pos in neighbor(i,j):
+          lneighbors.append(grid[pos[0]][pos[1]])
+        if self["cell"] == 0:
+          
+          a=0
+          for k in range(4):
+            neighbor=lneighbors[k]
+            if(neighbor["id"]==self["id"]):
+              a+=1
+            else:
+              lneighbors.pop(k)
+          b=0
+          c=0
+          for neighbor in lneighbors:
+            b+=neighbor["water"]
+            c+=neighbor["energy"]
+          b+=self["water"]
+          b/=1+len(lneighbors)
+          c+=neighbor["energy"]
+          c/=1+len(lneighbors)
+          for pos in neighbors(i,j):
+            vgrid[pos[0]][pos[1]]["water"]=b
+            vgrid[pos[0]][pos[1]]["energy"]=c
+        elif self["cell"]==1:
+          
         
+        
+        
+        
+          
         
         
 
