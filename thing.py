@@ -36,13 +36,16 @@ def define():
   for i in range(b-1):
     a.append([randomcelltype(c) for i in range(4)])
   return a
-def plant(id):
+def mutate(plant,mrate1,mrate2):
+  plantdef=plant["def"]
+  if(
+def newplant(id):
   return {
     "def":define(),
     "id":id
   }
 for i in range(population):
-  plantlist.append(plant(i))
+  plantlist.append(newplant(i))
 def deathcondition(cell):
   if cell["water"]<=0 or cell["energy"]<=0 or grid[cell["rootx"]][cell["rooty"]]["id"]== -1:
     return True
