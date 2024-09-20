@@ -19,7 +19,7 @@ def creategrid(width,height):
   for i in range(height):
     grid.append([])
     for j in range(width):
-      grid[i].append(tile(-1,-1,10,0,0))
+      grid[i].append(tile(-1,-1,10,10,0,0))
 def randomcelltype(lastdefindex):
   if random.random()<0.5:
     return random.randint(0,8)
@@ -70,6 +70,8 @@ def updategrid():
         vgrid[i][j]["id"]=-1
         vgrid[i][j]["rootx"]=-1
         vgrid[i][j]["rooty"]=-1
+      elif self["id"]==-1:
+        continue
       else:
         lneighbors=[]
         for pos in neighbor(i,j):
@@ -96,15 +98,21 @@ def updategrid():
             vgrid[pos[0]][pos[1]]["water"]=b
             vgrid[pos[0]][pos[1]]["energy"]=c
         elif self["cell"]==1:
-          vgrid[i][j]
           if lneighbors[self["direction"]]["id"]==-1:
             vgrid[neighbors(i,j)[self("direction")][0]][neighbors(i,j)[self("direction")][1]]=self
             vgrid[i][j]["type"]=-1
             vgrid[i][j]["id"]=-1
             vgrid[i][j]["rootx"]=-1
             vgrid[i][j]["rooty"]=-1
+          else:
+            plantlist.append({"def":mutate(self["id"],0.1,0.1,0.1),id:len(plantlist),"throwlength":plantlist[self["id"]]["throwlength"]+Random.random()-0.5})
+            vgrid[i][j]=tile(8,len(plantlist),10,10,0,-1,-1)
+        else:
+          definition=plantlist[self["id"]]["def"]
           
-        
+          for k in range(4):
+            if lneighbors(4)["id"]==-1:
+              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][0]]=
         
         
         
