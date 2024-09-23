@@ -112,8 +112,13 @@ def updategrid():
           
           for k in range(4):
             if lneighbors(4)["id"]==-1:
-              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][0]]=
-        
+              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["cell"]=plantlist[self["id"]]["def"][self["cell"]-8][(k+self["direction"])%4]
+              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["id"]=self["id"]
+              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rootx"]=i
+              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rooty"]=j
+              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["direction"]=(k+self["direction"])%4
+              vgrid[i][j]["energy"]-=1
+            
         
         
           
