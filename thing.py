@@ -4,6 +4,7 @@ width=100
 height=100
 plantlist=[]
 population=500
+celltypes=8
 def tile(type,id,water,energy,direction,rootx,rooty):
   return {
     "type":type,
@@ -22,9 +23,9 @@ def creategrid(width,height):
       grid[i].append(tile(-1,-1,10,10,0,0))
 def randomcelltype(lastdefindex):
   if random.random()<0.5:
-    return random.randint(0,8)
+    return random.randint(0,celltypes)
   else:
-    return random.randint(8,lastdefindex+8)
+    return random.randint(celltypes,lastdefindex+celltypes)
 def define():
   a = []
   b = random.randint(0,20)
@@ -49,8 +50,11 @@ def newplant(id):
     "id":id,
     "throwlength":random.randint(0,100)
   }
-for i in range(population):
-  plantlist.append(newplant(i))
+def populate():
+  for i in range(population):
+    plantlist.append(newplant(i))
+  for i in range(population):
+    grid[random.randint(0,height)][random.randint(0,width)]["cell"]=
 def deathcondition(cell):
   if cell["water"]<=0 or cell["energy"]<=0 or grid[cell["rootx"]][cell["rooty"]]["id"]== -1:
     return True
@@ -106,13 +110,13 @@ def updategrid():
             vgrid[i][j]["rooty"]=-1
           else:
             plantlist.append({"def":mutate(self["id"],0.1,0.1,0.1),id:len(plantlist),"throwlength":plantlist[self["id"]]["throwlength"]+Random.random()-0.5})
-            vgrid[i][j]=tile(8,len(plantlist),10,10,0,-1,-1)
+            vgrid[i][j]=tile(celltypes,len(plantlist),10,10,0,-1,-1)
         else:
           definition=plantlist[self["id"]]["def"]
           
           for k in range(4):
             if lneighbors(4)["id"]==-1:
-              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["cell"]=plantlist[self["id"]]["def"][self["cell"]-8][(k+self["direction"])%4]
+              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["cell"]=plantlist[self["id"]]["def"][self["cell"]-celltypes][(k+self["direction"])%4]
               vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["id"]=self["id"]
               vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rootx"]=i
               vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rooty"]=j
