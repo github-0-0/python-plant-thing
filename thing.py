@@ -1,3 +1,4 @@
+import tkinter
 import random
 grid=[]
 width=100
@@ -17,10 +18,11 @@ def tile(type,id,water,energy,direction,rootx,rooty):
   }
 grid = []
 def creategrid(width,height):
+  global grid
   for i in range(height):
     grid.append([])
     for j in range(width):
-      grid[i].append(tile(-1,-1,10,10,0,0))
+      grid[i].append(tile(-1,-1,10,10,0,-1,-1))
 def randomcelltype(lastdefindex):
   if random.random()<0.5:
     return random.randint(0,celltypes)
@@ -51,11 +53,12 @@ def newplant(id):
     "throwlength":random.randint(0,100)
   }
 def populate():
+  global grid
   for i in range(population):
     plantlist.append(newplant(i))
   for i in range(population):
-    grid[random.randint(0,height)][random.randint(0,width)]["cell"]=8
-    grid[random.randint(0,height)][random.randint(0,width)]["id"]=i
+    e=[random.randint(0,height-1),random.randint(0,width-1)]
+    grid[e[0]][e[1]]["cell"]=8
 def deathcondition(cell):
   if cell["water"]<=0 or cell["energy"]<=0 or (not(grid[cell["rootx"]]==-1) and grid[cell["rootx"]][cell["rooty"]]["id"]== -1):
     return True
@@ -66,6 +69,7 @@ def wrap(x,n):
 def neighbors(x,y):
   return [[wrap(x-1,height),y],[x,wrap(y+1,width)],[wrap(x+1,height),y],[x,wrap(y-1,width)]]
 def updategrid():
+  global grid
   vgrid = grid
   for i in range(height):
     for j in range(width):
@@ -126,11 +130,12 @@ def updategrid():
                 vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rooty"]=j
                 vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["direction"]=(k+self["direction"])%4
                 vgrid[i][j]["energy"]-=1
+    return vgrid
 def setupeverything():
-  creategrid()
+  creategrid(width,height)
   populate()
-updategrid()
-print(grid)
+setupeverything()
+grid=updategrid()
             
         
         
