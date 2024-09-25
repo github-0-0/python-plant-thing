@@ -54,9 +54,10 @@ def populate():
   for i in range(population):
     plantlist.append(newplant(i))
   for i in range(population):
-    grid[random.randint(0,height)][random.randint(0,width)]["cell"]=
+    grid[random.randint(0,height)][random.randint(0,width)]["cell"]=8
+    grid[random.randint(0,height)][random.randint(0,width)]["id"]=i
 def deathcondition(cell):
-  if cell["water"]<=0 or cell["energy"]<=0 or grid[cell["rootx"]][cell["rooty"]]["id"]== -1:
+  if cell["water"]<=0 or cell["energy"]<=0 or (not(grid[cell["rootx"]]==-1) and grid[cell["rootx"]][cell["rooty"]]["id"]== -1):
     return True
   else:
     return False
@@ -111,17 +112,25 @@ def updategrid():
           else:
             plantlist.append({"def":mutate(self["id"],0.1,0.1,0.1),id:len(plantlist),"throwlength":plantlist[self["id"]]["throwlength"]+Random.random()-0.5})
             vgrid[i][j]=tile(celltypes,len(plantlist),10,10,0,-1,-1)
+        elif self["cell"]==2:
+          vgrid[i][j]["energy"]+=1
         else:
           definition=plantlist[self["id"]]["def"]
           
           for k in range(4):
             if lneighbors(4)["id"]==-1:
-              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["cell"]=plantlist[self["id"]]["def"][self["cell"]-celltypes][(k+self["direction"])%4]
-              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["id"]=self["id"]
-              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rootx"]=i
-              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rooty"]=j
-              vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["direction"]=(k+self["direction"])%4
-              vgrid[i][j]["energy"]-=1
+              if(self["energy"]>0):
+                vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["cell"]=plantlist[self["id"]]["def"][self["cell"]-celltypes][(k+self["direction"])%4]
+                vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["id"]=self["id"]
+                vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rootx"]=i
+                vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["rooty"]=j
+                vgrid[neighbors(i,j)[k][0]][neighbors(i,j)[k][1]]["direction"]=(k+self["direction"])%4
+                vgrid[i][j]["energy"]-=1
+def setupeverything():
+  creategrid()
+  populate()
+updategrid()
+print(grid)
             
         
         
